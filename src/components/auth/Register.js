@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
 
+    const history = useHistory();
+
     const [credentials, setCredentials] = useState({
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
     });
@@ -19,10 +24,12 @@ const Register = () => {
         event.preventDefault();
 
         axios
-            .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
+            .post(`${process.env.REACT_APP_DB_URL}/users/register`, credentials)
             .then(res => {
                 console.log(res);
-                localStorage.setItem('token', res.data.token);
+                // currently not doing anything with data returned at register
+                return history.push('/login');
+                
                 // still deciding if redux is necessary
                 // if so, we will add the user to an app state
                 // if not, we will add the user to localStorage
@@ -33,6 +40,16 @@ const Register = () => {
 
     return (
         <div>
+            <input
+                type='text'
+                name='first_name'
+                onChange={handleChange}
+            />            
+            <input
+                type='text'
+                name='last_name'
+                onChange={handleChange}
+            />
             <input
                 type='email'
                 name='email'

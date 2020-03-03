@@ -10,7 +10,7 @@ const Nav = () => {
         <div className='nav-container'>
             <Link to='/login'>Login</Link>
             <Link to='/register'>Register</Link>
-            <Link onClick={() => handleLogout}>Logout</Link>
+            <Link onClick={handleLogout}>Logout</Link>
         </div>
     );
 };

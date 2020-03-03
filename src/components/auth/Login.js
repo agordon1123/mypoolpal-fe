@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+
+    const history = useHistory();
 
     const [credentials, setCredentials] = useState({
         email: '',
@@ -21,8 +24,10 @@ const Login = () => {
         axios
             .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
             .then(res => {
-                console.log(res);
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', res.data.user);
+                return history.push('/dashboard');
+                
                 // still deciding if redux is necessary
                 // if so, we will add the user to an app state
                 // if not, we will add the user to localStorage
