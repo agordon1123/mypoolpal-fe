@@ -25,7 +25,7 @@ const Login = () => {
             .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
             .then(res => {
                 localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', res.data.user);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
                 return history.push('/dashboard');
                 
                 // still deciding if redux is necessary

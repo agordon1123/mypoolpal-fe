@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import PrivateRoute from '../utils/PrivateRoute';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
+import AddPool from './AddPool';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <PrivateRoute path='/dashboard' component={Dashboard} />
+      <Route path='/test' component={AddPool} />
     </div>
   );
 }
