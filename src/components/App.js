@@ -14,7 +14,7 @@ function App() {
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <PrivateRoute path='/dashboard' component={Dashboard} />
-      <Route path='/test' component={AddPool} />
+      <PrivateRoute path='/new-pool' component={AddPool} />
     </div>
   );
 }

@@ -1,0 +1,27 @@
+.add-pool-container {
+    display: flex;
+    flex-direction: column;
+    label {
+        font-size: 1.6rem;
+        &:first-child {
+            margin-top: 2rem;
+        }
+    }
+    input {
+        width: 50%;
+        margin: 2rem auto;
+        font-size: 1.6rem;
+    }
+    select {
+        width: 50%;
+        margin: 2rem auto;
+        font-size: 1.6rem;
+    }
+    button {
+        width: 35%;
+        margin: 2rem auto;
+        font-size: 1.4rem;
+        height: 2.4rem;
+        border-radius: 1.2rem;
+    }
+}

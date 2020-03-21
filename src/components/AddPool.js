@@ -10,6 +10,10 @@ const AddPool = () => {
         is_salt_water: ''
     })
 
+    const [galModal, setGalModal] = useState({
+        // need to create a modal ot calulate and pass gallongae
+    })
+
     const handleChange = e => {
         setPool({
             ...pool,
@@ -19,7 +23,8 @@ const AddPool = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-
+        
+        // changes form input value to bool
         if (pool.is_salt_water === 'salt') {
             setPool({
                 ...pool,
@@ -40,15 +45,25 @@ const AddPool = () => {
             .catch(err => console.log(err))
     }
 
+    const handleGallonage = e => {
+        e.preventDefault();
+
+        console.log(e);
+    }
+
     return (
         <form 
             onSubmit={handleSubmit}
-        >
+            className='add-pool-container'
+        >   
+            <label for='title'>Title:</label>
             <input
                 type='text'
                 name='title'
                 onChange={handleChange}
             />
+            <label for='gallonage'>Gallonage:</label>
+            <button onClick={event => handleGallonage(event)}>Calculate</button>
             <input
                 type='text'
                 name='gallonage'
