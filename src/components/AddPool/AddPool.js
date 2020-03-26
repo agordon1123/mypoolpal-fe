@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CalculateGallonage from './CalculateGallonage';
 import axios from 'axios';
 
 const AddPool = () => {
@@ -10,9 +11,7 @@ const AddPool = () => {
         is_salt_water: ''
     })
 
-    const [galModal, setGalModal] = useState({
-        // need to create a modal ot calulate and pass gallongae
-    })
+    const [modal, setModal] = useState({ show: false })
 
     const handleChange = e => {
         setPool({
@@ -45,10 +44,15 @@ const AddPool = () => {
             .catch(err => console.log(err))
     }
 
-    const handleGallonage = e => {
-        e.preventDefault();
+    const handleClose = () => {
+        setModal({ show: false })
+    }
 
-        console.log(e);
+    const handleCalculate = gallonage => {
+        setPool({
+            ...pool,
+            gallonage: gallonage
+        })
     }
 
     return (
@@ -63,10 +67,16 @@ const AddPool = () => {
                 onChange={handleChange}
             />
             <label for='gallonage'>Gallonage:</label>
-            <button onClick={event => handleGallonage(event)}>Calculate</button>
+            <button onClick={() => setModal({ show: true })}>Calculate</button>
+            <CalculateGallonage 
+                show={modal.show} 
+                handleClose={handleClose} 
+                handleCalculate={handleCalculate}
+            />
             <input
                 type='text'
                 name='gallonage'
+                value={pool.gallonage}
                 onChange={handleChange}
             />
             <label for='sanitizer'>Sanitizer:</label>

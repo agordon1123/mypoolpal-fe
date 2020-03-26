@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import PrivateRoute from '../utils/PrivateRoute';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
-import AddPool from './AddPool';
+import AddPool from './AddPool/AddPool';
 
 function App() {
   return (

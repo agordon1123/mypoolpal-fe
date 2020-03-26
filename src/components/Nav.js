@@ -8,6 +8,7 @@ const Nav = () => {
 
     return (
         <div className='nav-container'>
+            <Link to='/dashboard'>Home</Link>
             <Link to='/login'>Login</Link>
             <Link to='/register'>Register</Link>
             <Link onClick={handleLogout}>Logout</Link>

@@ -40,21 +40,25 @@ const Register = () => {
 
     return (
         <div>
+            <label for='first name'>First name:</label>
             <input
                 type='text'
                 name='first_name'
                 onChange={handleChange}
-            />            
+            />
+            <label for='last name'>Last Name:</label>  
             <input
                 type='text'
                 name='last_name'
                 onChange={handleChange}
             />
+            <label for='email'>Email:</label>
             <input
                 type='email'
                 name='email'
                 onChange={handleChange}
             />
+            <label for='password'>Password:</label>
             <input
                 type='password'
                 name='password'

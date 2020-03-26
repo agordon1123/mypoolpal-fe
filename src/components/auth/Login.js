@@ -37,12 +37,14 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
+            <label for ='email'>Email</label>
             <input
                 type='email'
                 name='email'
                 onChange={handleChange}
             />
+            <label for='password'>Password</label>
             <input
                 type='password'
                 name='password'
@@ -50,9 +52,8 @@ const Login = () => {
             />
             <button
                 type='submit'
-                onClick={(e) => handleSubmit(e)}
             >Go</button>
-        </div>
+        </form>
     );
 };
 
