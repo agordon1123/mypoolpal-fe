@@ -22,6 +22,10 @@ const AddPool = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
+
+        if (pool.gallonage === 0) {
+            return alert('Pool cannot have gallonage of 0')
+        }
         
         // changes form input value to bool
         if (pool.is_salt_water === 'salt') {
@@ -67,7 +71,7 @@ const AddPool = () => {
                 onChange={handleChange}
             />
             <label for='gallonage'>Gallonage:</label>
-            <button onClick={() => setModal({ show: true })}>Calculate</button>
+            <button type='button' onClick={() => setModal({ show: true })}>Calculate</button>
             <CalculateGallonage 
                 show={modal.show} 
                 handleClose={handleClose} 
@@ -92,9 +96,7 @@ const AddPool = () => {
                     value='salt'
                 >Salt</option>
             </select>
-            <button
-                type='submit'
-            >Go</button>
+            <button type='submit'>Go</button>
         </form>
     );
 };

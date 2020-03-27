@@ -39,7 +39,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <form onSubmit={handleSubmit} className='Register'>
             <label for='first name'>First name:</label>
             <input
                 type='text'
@@ -64,11 +64,8 @@ const Register = () => {
                 name='password'
                 onChange={handleChange}
             />
-            <button
-                type='submit'
-                onClick={(e) => handleSubmit(e)}
-            >Go</button>
-        </div>
+            <button type='submit'>Go</button>
+        </form>
     );
 };
 

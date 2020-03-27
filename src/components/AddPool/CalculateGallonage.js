@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { calculateGallonage } from '../../functions/calculateGallonage';
+import { gallonageCalculator } from '../../functions/gallonageCalculator';
 import InputGallonageForm from './InputGallonageForm';
 
 const CalculateGallonage = props => {
@@ -32,7 +32,7 @@ const CalculateGallonage = props => {
             return alert('Please select a pool shape')
         }
 
-        let gallons = calculateGallonage(measurements)
+        let gallons = gallonageCalculator(measurements)
         handleCalculate(gallons)
 
         handleClose()
@@ -42,9 +42,13 @@ const CalculateGallonage = props => {
 
     return (
         <div className={showHideClassName}>
+            {/* form cannot be child of form */}
             <form
                 onSubmit={handleSubmit}
             >
+                <div className='close-button'>
+                    <button type='button' onClick={() => handleClose()}>X</button>
+                </div>
                 <label for='shape-selector'>Shape:</label>
                 <select id='shape-selector' name='shape' onChange={handleChange}>
                     <option value=''>--Please select an option--</option>

@@ -1,5 +1,5 @@
 
-export const calculateGallonage = ({ shape, length, width, shortWidth, longWidth, depth }) => {
+export const gallonageCalculator = ({ shape, length, width, shortWidth, longWidth, depth }) => {
     switch(shape) {
         case 'rectangle':
             return Math.round(length * width * depth * 7.5)
