@@ -9,6 +9,8 @@ import AddPool from './AddPool/AddPool';
 import Pool from './Pool';
 import AddReading from './AddReading/AddReading';
 
+// this commit is brought to you by the verde square
+
 function App() {
   return (
     <div className="App">
