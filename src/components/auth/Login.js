@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
 
@@ -24,16 +24,17 @@ const Login = () => {
         axios
             .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
             .then(res => {
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', JSON.stringify(res.data.user));
-                return history.push('/dashboard');
+                console.log(res.data.token)
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('user', JSON.stringify(res.data.user))
+                return history.push('/dashboard')
                 
                 // still deciding if redux is necessary
                 // if so, we will add the user to an app state
                 // if not, we will add the user to localStorage
                 //    and pull IDs from there
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
     }
 
     return (
@@ -54,7 +55,7 @@ const Login = () => {
                 type='submit'
             >Go</button>
         </form>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

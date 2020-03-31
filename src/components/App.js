@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import AddPool from './AddPool/AddPool';
 import Pool from './Pool';
 import AddReading from './AddReading/AddReading';
+import Reading from './Reading';
 
 // this commit is brought to you by the verde square
 
@@ -21,6 +22,7 @@ function App() {
       <PrivateRoute path='/new-pool' component={AddPool} />
       <PrivateRoute exact path='/pool/:id' component={Pool} />
       <PrivateRoute path='/pool/:id/new-reading' component={AddReading} />
+      <PrivateRoute path='/pool/:id/reading/:id' component={Reading} />
     </div>
   );
 }

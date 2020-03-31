@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const token = localStorage.getItem('token')
 
@@ -9,5 +9,5 @@ export const axiosWithAuth = () => {
             "Content-Type": "application/json",
             Authorization: token
         }
-    });
+    })
 }

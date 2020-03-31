@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Nav = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
+        console.log("clicked")
     }
 
     return (
@@ -11,7 +12,7 @@ const Nav = () => {
             <Link to='/dashboard'>Home</Link>
             <Link to='/login'>Login</Link>
             <Link to='/register'>Register</Link>
-            <Link onClick={handleLogout}>Logout</Link>
+            <Link onClick={() => handleLogout()}>Logout</Link>
         </div>
     );
 };
