@@ -1,6 +1,10 @@
 .nav-container {
+    height: 10%;
     font-size: 1.6rem;
     a {
         margin: 1rem;
+    }
+    .menu-drawer {
+        max-width: 400px;
     }
 }

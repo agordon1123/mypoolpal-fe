@@ -1,12 +1,21 @@
-.Login {
-    font-size: 1.6rem;
-    margin-top: 2rem;
-    input {
-        width: 50%;
-        margin: 2rem 25%;
-        font-size: 1.6rem;
-    }
-    button {
-        font-size: 1.4rem;
+.login-container {
+    height: 80%;
+    form {
+        .auth-form-input {
+            width: 74%;
+            margin: 2rem 13%;
+            label {
+                font-size: 1.4rem;
+            }
+            input {
+                font-size: 1.8rem;
+            }
+        }
+        .form-button {
+            background-color: #1974D2;
+            color: white;
+            margin: 2rem 25%;
+            font-size: 1.4rem;
+        }
     }
 }

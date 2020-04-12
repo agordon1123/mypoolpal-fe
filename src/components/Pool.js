@@ -49,6 +49,8 @@ const Pool = () => {
                 })
 
                 console.log(res.data)
+
+                // TODO: Filter out by pool -> 
                 
                 // sort readings by date in descending order
                 let sortedReadings = res.data.sort((a, b) => {
@@ -85,7 +87,7 @@ const Pool = () => {
 
             <Link to={`${location.pathname}/new-reading`}>Add Reading</Link>
         </div>
-    );
-};
+    )
+}
 
-export default Pool;
+export default Pool
