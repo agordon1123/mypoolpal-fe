@@ -1,10 +1,17 @@
 .nav-container {
     height: 10%;
     font-size: 1.6rem;
-    a {
-        margin: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-content: center;
+    svg {
+        height: 3rem;
+        width: 3rem;
+        margin: 3rem;
     }
-    .menu-drawer {
-        max-width: 400px;
-    }
+}
+
+.nav-link {
+    font-size: 1.4rem;
+    margin: 0 auto;
 }

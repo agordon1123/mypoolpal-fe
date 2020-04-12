@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const Nav = () => {
 
@@ -22,11 +24,21 @@ const Nav = () => {
     return (
         <div className='nav-container'>
             <MenuIcon onClick={toggleDrawer()} />
-            <Drawer style={{ maxWidth: '480px' }} open={showMenu} onClose={toggleDrawer()}>
-                <Link to='/dashboard'>Home</Link>
-                <Link to='/login'>Login</Link>
-                <Link to='/register'>Register</Link>
-                <Link onClick={() => handleLogout()}>Logout</Link>
+            <Drawer disableBackdropTransition='true' anchor='top' open={showMenu} onClose={toggleDrawer()}>
+                <List role='presentation'>
+                    <ListItem>
+                        <Link className='nav-link' to='/dashboard'>Home</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className='nav-link' to='/login'>Login</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className='nav-link' to='/register'>Register</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className='nav-link' onClick={() => handleLogout()}>Logout</Link>
+                    </ListItem>
+                </List>
             </Drawer>
         </div>
     );

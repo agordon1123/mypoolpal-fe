@@ -7,8 +7,8 @@ import AddIcon from '@material-ui/icons/Add';
 
 const Footer = () => {
 
-    const [value, setValue] = useState(0);
-    console.log(value);
+    const [value, setValue] = useState(1);
+    // TODO: work into router
 
     return (
         <div className='footer-container'>
@@ -19,7 +19,7 @@ const Footer = () => {
                 }}
                 showLabels
                 >
-                <BottomNavigationAction label="Recents" icon={<ListIcon style={ value === 0 ? { color: '#1974D2' } : null }/>} />
+                <BottomNavigationAction label="Recents" icon={<ListIcon fontSize='large' style={ value === 0 ? { color: '#1974D2' } : null }/>} />
                 <BottomNavigationAction label="Home" icon={<HomeIcon style={ value === 1 ? { color: '#1974D2' } : null } />} />
                 <BottomNavigationAction label="Add" icon={<AddIcon style={ value === 2 ? { color: '#1974D2' } : null } />} />
             </BottomNavigation>

@@ -11,8 +11,6 @@ import AddReading from './AddReading/AddReading';
 import Reading from './Reading';
 import Footer from './Footer';
 
-// this commit is brought to you by the verde square
-
 function App() {
   return (
     <div className="App">

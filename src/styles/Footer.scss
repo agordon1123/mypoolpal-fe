@@ -3,5 +3,12 @@
     div {
         height: 100%;
         font-size: 1.6rem;
+        svg {
+            height: 3rem;
+            width: 3rem;
+        }
+        span {
+            font-size: 1rem;
+        }
     }
 }
