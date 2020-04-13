@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
+import Calendar from './Readings/Calendar';
+import TableView from './Readings/Tableview';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { errorHandler } from '../utils/errorHandler';
+import { Card, CardMedia } from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
 
 const Pool = () => {
 
     const [pool, setPool] = useState({})
     const [readings, setReadings] = useState([])
-    console.log(readings)
-
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    const [readingsView, setReadingsView] = useState({ list: true, calendar: false });
 
     const user = JSON.parse(localStorage.getItem('user'))
-    console.log(user)
 
     // location used to extract pool id from params
     const location = useLocation()
@@ -49,7 +50,6 @@ const Pool = () => {
                 })
 
                 console.log(res.data)
-
                 // TODO: Filter out by pool -> 
                 
                 // sort readings by date in descending order
@@ -65,27 +65,57 @@ const Pool = () => {
 
     }, [location.pathname])
 
+    const handleViewToggle = () => {
+        setReadingsView({ 
+            ...readingsView, 
+            list: !readingsView.list, 
+            calendar: !readingsView.calendar 
+        })
+    }
+
     return (
-        <div className='Pool'>
-            <h3>Pool Info:</h3>
+        <div className='pool-container'>
+            
             {Object.keys(pool).length !== 0 ? (
-                <div className='pool-container'>
-                    <h3>{pool.title}</h3>
-                    <p>{pool.gallonage.toLocaleString()} gallons</p>
-                    <p>Sanatizer: {pool.is_salt_water}</p>
-                </div>
+                <Card className='pool-card-container'>
+                    <CardMedia
+                        component='img'
+                        alt='shimmering water'
+                        height='140'
+                        image='/water-shimmer.jpg'
+                        title='Shimmering Water'
+                    />
+                    <div className='pool-container-info'>
+                        <h3>{pool.title}</h3>
+                        <p>{pool.gallonage.toLocaleString()} gallons</p>
+                        <p>Sanatizer: {pool.is_salt_water}</p>
+                    </div>
+                </Card>
             ) : null}
 
-            <h3>Readings:</h3>
-            {readings.length ? (
-                readings.map((el, i) => (
-                    <div className='reading'>
-                        <Link to={`${location.pathname}/reading/${el.id}`}>{months[el.created_at.getMonth()]}-{el.created_at.getDate()}-{el.created_at.getFullYear()}</Link>
-                    </div>
-                ))
-            ): null}
+            <h3 className='readings-title'>Readings:</h3>
+            <div className='switch-view-container'>
+                <p className={readingsView.list ? null : 'toggle-off'}>List</p>
+                <Switch
+                    color="default"
+                    inputProps={{ 'aria-label': 'checkbox with default color' }}
+                    onChange={handleViewToggle}
+                />
+                <p className={readingsView.calendar ? null : 'toggle-off'}>Calendar</p>
+            </div>
 
-            <Link to={`${location.pathname}/new-reading`}>Add Reading</Link>
+            {readingsView.list ? (
+                //render table in list view
+                <TableView readings={readings} pool={pool} />
+            ) : (
+                // render calendar view
+                <Calendar />
+            )}
+            <div className='add-new-reading'>
+                <Link to={`${location.pathname}/new-reading`}>
+                    +Reading
+                </Link>
+            </div>
         </div>
     )
 }

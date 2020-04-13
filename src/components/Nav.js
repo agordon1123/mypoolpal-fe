@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -8,10 +9,25 @@ import ListItem from '@material-ui/core/ListItem';
 const Nav = () => {
 
     const [showMenu, setShowMenu] = useState(false);
+    const [showBack, setShowBack] = useState(false);
+    const location = useLocation();
+    const history = useHistory();
+
+    useEffect(() => {
+        checkLocation();
+    }, [location.pathname]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        console.log("clicked")
+    }
+
+    const checkLocation = () => {
+        // return true or false if back button should appear
+        if (location.pathname.includes('\/pool\/')) {
+            setShowBack(true)
+        } else {
+            setShowBack(false);
+        }
     }
 
     const toggleDrawer = () => (event) => {
@@ -21,8 +37,15 @@ const Nav = () => {
         setShowMenu(!showMenu);
     };
 
+    const handleBack = () => {
+        history.goBack();
+    }
+
     return (
         <div className='nav-container'>
+            {showBack ? (
+                <ArrowBackIcon onClick={() => history.goBack()} />
+            ) : <p></p>}
             <MenuIcon onClick={toggleDrawer()} />
             <Drawer disableBackdropTransition='true' anchor='top' open={showMenu} onClose={toggleDrawer()}>
                 <List role='presentation'>

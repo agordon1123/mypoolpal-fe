@@ -7,7 +7,7 @@ import Nav from './Nav';
 import Dashboard from './Dashboard';
 import AddPool from './AddPool/AddPool';
 import Pool from './Pool';
-import AddReading from './AddReading/AddReading';
+import AddReading from './Readings/AddReading';
 import Reading from './Reading';
 import Footer from './Footer';
 

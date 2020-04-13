@@ -21,7 +21,7 @@ const Footer = () => {
                 >
                 <BottomNavigationAction label="Recents" icon={<ListIcon fontSize='large' style={ value === 0 ? { color: '#1974D2' } : null }/>} />
                 <BottomNavigationAction label="Home" icon={<HomeIcon style={ value === 1 ? { color: '#1974D2' } : null } />} />
-                <BottomNavigationAction label="Add" icon={<AddIcon style={ value === 2 ? { color: '#1974D2' } : null } />} />
+                <BottomNavigationAction label="Reading" icon={<AddIcon style={ value === 2 ? { color: '#1974D2' } : null } />} />
             </BottomNavigation>
         </div>
     );

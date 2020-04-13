@@ -1,14 +1,40 @@
-.Pool {
+.pool-container {
     font-size: 1.6rem;
-    .pool-container {
-        h3 {
-            margin: 1rem 0;
-        }
-        p {
-            margin: 1rem 0;            
+    height: 80%;
+    .pool-card-container {
+        width: 90%;
+        margin: 0 auto;
+        .pool-container-info {
+            h3 {
+                margin: 1rem 0;
+            }
+            p {
+                margin: 1rem 0;            
+            }
         }
     }
+    .readings-title {
+        margin: 2rem 0 1rem 0;
+    }
+    .switch-view-container {
+        margin: 1rem 0 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .toggle-off {
+        opacity: 0.5;
+    }
     a {
-        color: green;
+        color: #1974D2;
+    }
+    .calendar-view-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .add-new-reading {
+        margin: 1rem 0;
+        color: #1974D2;
+        text-decoration: underline;
     }
 }
