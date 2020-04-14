@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import WeatherWidget from './WeatherWidget';
 import Paper from '@material-ui/core/Paper';
 import PoolIcon from '@material-ui/icons/Pool';
+import { errorHandler } from '../utils/errorHandler';
 
-const Dashboard = () => {
+const Dashboard = props => {
 
     const [pools, setPools] = useState([])
-
+    const history = {props}
     const user = JSON.parse(localStorage.getItem('user'))
     
     useEffect(() => {
@@ -18,8 +19,7 @@ const Dashboard = () => {
                 setPools(res.data)
             })
             .catch(err => {
-                console.log(err)
-                alert('There was an error processing your request')
+                errorHandler(err.response, history)
             })
     }, [user.id])
 
@@ -35,7 +35,8 @@ const Dashboard = () => {
                         <PoolIcon />
                             <div className='pool-link-info-container'>
                                 <p>{el.title}</p>
-                                <p>last reading: 4/13/20</p>
+                                {/* TODO: obtain and pass in last reading */}
+                                <p>last reading: 4/13/20*</p>
                             </div>
                         </Paper>
                     </Link>

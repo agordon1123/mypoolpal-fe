@@ -40,7 +40,7 @@ const AddReading = () => {
 
 
     return (
-        <form onSubmit={handleSubmit} className='AddReading'>
+        <form onSubmit={handleSubmit} className='add-reading-container'>
             <label for='pH'>pH:</label>
             <input 
                 type='number'

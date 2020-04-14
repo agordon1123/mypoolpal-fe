@@ -1,0 +1,29 @@
+.calendar-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1rem;
+    .react-calendar__month-view__weekdays {
+        margin: 1rem 0;
+    }
+    .react-calendar__tile {
+        height: 3rem;
+    }
+    .active-reading-day-green {
+        background-color: #238823;
+        border: 1px solid #238823;
+        color: white;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .active-reading-day-yellow {
+        background-color: #FFBF00;
+        border: 1px solid #FFBF00;
+        color: white;
+    }
+    .active-reading-day-red {
+        background-color: #D2222D;
+        border: 1px solid #D2222D;
+        color: white;
+    }
+}

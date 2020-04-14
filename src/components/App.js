@@ -10,6 +10,7 @@ import Pool from './Pool';
 import AddReading from './Readings/AddReading';
 import Reading from './Reading';
 import Footer from './Footer';
+import SelectPool from './SelectPool';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <PrivateRoute exact path='/pool/:id' component={Pool} />
       <PrivateRoute path='/pool/:id/new-reading' component={AddReading} />
       <PrivateRoute path='/pool/:id/reading/:id' component={Reading} />
+      <PrivateRoute path='/add-reading' component={SelectPool} />
       <Footer />
     </div>
   );

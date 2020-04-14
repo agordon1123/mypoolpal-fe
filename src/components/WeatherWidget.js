@@ -2,6 +2,8 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
+// TODO: connect to weather API
+
 const WeatherWidget = () => {
     return (
         <Paper elevation={3} className='weather-widget-container'>

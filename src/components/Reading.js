@@ -8,12 +8,8 @@ const Reading = props => {
     const location = useLocation()
 
     const [reading, setReading] = useState({})
-    console.log(reading)
 
     useEffect(() => {
-        // I need to impliment redux to save from all of these API calls
-        // or move the API calls a level up to Dashboard.js
-
         const len = location.pathname.length
         const readingId = location.pathname.charAt(len - 1)
 
@@ -23,7 +19,6 @@ const Reading = props => {
                 setReading(res.data)
             })
             .catch(err => {
-                console.log(err)
                 errorHandler(err.response)
             })
     }, [])

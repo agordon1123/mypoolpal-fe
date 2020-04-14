@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
-import Calendar from './Readings/Calendar';
+import CalendarView from './Readings/CalendarView';
 import TableView from './Readings/Tableview';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { errorHandler } from '../utils/errorHandler';
@@ -27,36 +27,38 @@ const Pool = () => {
         axiosWithAuth()
             .get(`pools/${poolId}`)
             .then(res => {
-
+                // convert boolean to string
                 if (res.data.is_salt_water === 1) {
                     res.data.is_salt_water = 'salt';
                 } else {
                     res.data.is_salt_water = 'chlorine';
                 }
-
                 setPool(res.data)
             })
             .catch(err => {
-                console.log(err.response)
                 errorHandler(err.response, history)
             })
         
         axiosWithAuth()
             .get(`${process.env.REACT_APP_DB_URL}/readings/all/${user.id}`)
             .then(res => {
-
+                // create new date object from timestamp
                 res.data.map((el, i) => {
                     el.created_at = new Date(el.created_at)
                 })
 
                 console.log(res.data)
-                // TODO: Filter out by pool -> 
+                // TODO: Filter out by pool ->
+                // will require adding pool as foreign key in reading table
+                // will require pool object to be passed in from this view
+                // and also prompt a select in the add reading view to
+                // select pool
+                // once in place -> filter
                 
                 // sort readings by date in descending order
                 let sortedReadings = res.data.sort((a, b) => {
                     return b.id - a.id
                 })
-                
                 setReadings(sortedReadings)
             })
             .catch(err => {
@@ -109,7 +111,7 @@ const Pool = () => {
                 <TableView readings={readings} pool={pool} />
             ) : (
                 // render calendar view
-                <Calendar />
+                <CalendarView readings={readings} />
             )}
             <div className='add-new-reading'>
                 <Link to={`${location.pathname}/new-reading`}>
