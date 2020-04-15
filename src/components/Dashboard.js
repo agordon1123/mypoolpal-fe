@@ -7,9 +7,7 @@ import PoolIcon from '@material-ui/icons/Pool';
 import { errorHandler } from '../utils/errorHandler';
 
 const Dashboard = props => {
-
-    const [pools, setPools] = useState([])
-    const history = {props}
+    const { pools, setPools, readings, setReadings, history } = props;
     const user = JSON.parse(localStorage.getItem('user'))
     
     useEffect(() => {
@@ -17,6 +15,32 @@ const Dashboard = props => {
             .get(`pools/all/${user.id}`)
             .then(res => {
                 setPools(res.data)
+            })
+            .catch(err => {
+                errorHandler(err.response, history)
+            })
+
+            axiosWithAuth()
+            .get(`${process.env.REACT_APP_DB_URL}/readings/all/${user.id}`)
+            .then(res => {
+                // create new date object from timestamp
+                res.data.map((el, i) => {
+                    el.created_at = new Date(el.created_at)
+                })
+
+                console.log(res.data)
+                // TODO: Filter out by pool ->
+                // will require adding pool as foreign key in reading table
+                // will require pool object to be passed in from this view
+                // and also prompt a select in the add reading view to
+                // select pool
+                // once in place -> filter
+                
+                // sort readings by date in descending order
+                let sortedReadings = res.data.sort((a, b) => {
+                    return b.id - a.id
+                })
+                setReadings(sortedReadings)
             })
             .catch(err => {
                 errorHandler(err.response, history)

@@ -20,10 +20,16 @@
         background-color: #FFBF00;
         border: 1px solid #FFBF00;
         color: white;
+        &:hover {
+            cursor: pointer;
+        }
     }
     .active-reading-day-red {
         background-color: #D2222D;
         border: 1px solid #D2222D;
         color: white;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

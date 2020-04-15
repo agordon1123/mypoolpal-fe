@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import CalendarView from './Readings/CalendarView';
 import TableView from './Readings/Tableview';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
@@ -7,18 +7,13 @@ import { errorHandler } from '../utils/errorHandler';
 import { Card, CardMedia } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 
-const Pool = () => {
+const Pool = props => {
 
+    const { readings, setReadings, history } = props;
     const [pool, setPool] = useState({})
-    const [readings, setReadings] = useState([])
     const [readingsView, setReadingsView] = useState({ list: true, calendar: false });
-
     const user = JSON.parse(localStorage.getItem('user'))
-
-    // location used to extract pool id from params
     const location = useLocation()
-    // history used to push to login upon errorHandler 401
-    const history = useHistory()
     
     useEffect(() => {
         const len = location.pathname.length
@@ -77,7 +72,6 @@ const Pool = () => {
 
     return (
         <div className='pool-container'>
-            
             {Object.keys(pool).length !== 0 ? (
                 <Card className='pool-card-container'>
                     <CardMedia

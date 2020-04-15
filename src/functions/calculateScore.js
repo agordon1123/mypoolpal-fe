@@ -9,7 +9,7 @@ export const calculateScore = reading => {
     if (salinity !== undefined) {
         score -= scoreSalinity(salinity);
     }
-    return score;
+    return Math.round(score);
 }
 
 const scorePh = pH => {

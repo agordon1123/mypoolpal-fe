@@ -34,7 +34,7 @@ const SelectPool = () => {
 
     return (
         <div className='select-pool-container'>
-            <FormControl required>
+            <FormControl required className='select-form'>
                 <InputLabel>Pool</InputLabel>
                 <Select
                     // value={selected}
