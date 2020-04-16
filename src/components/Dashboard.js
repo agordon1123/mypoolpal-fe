@@ -7,8 +7,9 @@ import PoolIcon from '@material-ui/icons/Pool';
 import { errorHandler } from '../utils/errorHandler';
 
 const Dashboard = props => {
-    const { pools, setPools, readings, setReadings, history } = props;
+    const { pools, setPools, readings, setReadings } = props;
     const user = JSON.parse(localStorage.getItem('user'))
+    const history = useHistory();
     
     useEffect(() => {
         axiosWithAuth()

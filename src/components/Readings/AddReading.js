@@ -4,14 +4,11 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { errorHandler } from '../../utils/errorHandler';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
-const AddReading = () => {
-
+const AddReading = props => {
+    
+    // console.log(props.history)
     const history = useHistory()
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -54,11 +51,11 @@ const AddReading = () => {
                     <TextField 
                         label='pH' 
                         type='number'
-                        step='0.1'
                         name='pH' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'pH',
+                            'step': '0.1'
                         }}
                     />
                 </FormControl>
@@ -66,11 +63,11 @@ const AddReading = () => {
                     <TextField 
                         label='Chlorine' 
                         type='number'
-                        step='0.1'
                         name='chlorine' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'chlorine',
+                            'step': '0.1'
                         }}
                     />
                 </FormControl>
@@ -78,11 +75,11 @@ const AddReading = () => {
                     <TextField 
                         label='Alkalinity' 
                         type='number'
-                        step='10'
                         name='alkalinity' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'alkalinity',
+                            'step': '10'
                         }}
                     />
                 </FormControl>
@@ -90,50 +87,17 @@ const AddReading = () => {
                     <TextField 
                         label='Salinity' 
                         type='number'
-                        step='50'
                         name='salinity' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'salinity',
+                            'step': '50'
                         }}
                     />
                 </FormControl>
                 <Button variant='contained' type='submit' className='form-button'>
                     Submit
                 </Button>
-                {/* <label for='pH'>pH:</label>
-                <input 
-                    type='number'
-                    step='0.1'
-                    name='pH' 
-                    onChange={handleChange} 
-                />
-
-                <label for='chlorine'>Chlorine:</label>
-                <input 
-                    type='number'
-                    step='0.1'
-                    name='chlorine' 
-                    onChange={handleChange} 
-                />
-
-                <label for='alkalinity'>Alkalinity:</label>
-                <input
-                    type='number'
-                    step='10'
-                    name='alkalinity'
-                    onChange={handleChange}
-                />
-
-                <label for='salinity'>Salinity:</label>
-                <input
-                    type='number'
-                    step='10'
-                    name='salinity'
-                    onChange={handleChange}
-                />
-
-                <button type='submit'>Go</button> */}
             </form>
         </div>
     );

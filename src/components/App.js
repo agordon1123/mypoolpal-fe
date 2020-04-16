@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Login from './auth/Login';
 import Register from './auth/Register';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../utils/PrivateRoute';
 import Nav from './Nav';
 import Dashboard from './Dashboard';
@@ -29,6 +29,7 @@ function App() {
       <PrivateRoute path='/pool/:id/new-reading' component={AddReading} />
       <PrivateRoute path='/pool/:id/reading/:id' component={Reading} />
       <PrivateRoute path='/add-reading' component={SelectPool} />
+      <PrivateRoute exact path='/'><Redirect to='/dashboard' /></PrivateRoute> 
       <Footer />
     </div>
   );
