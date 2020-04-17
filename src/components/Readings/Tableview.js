@@ -29,7 +29,7 @@ const TableView = props => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {readings.length && readings.map((reading) => (
+                    {readings.length ? readings.map((reading) => (
                         <TableRow key={reading.id}>
                             <TableCell component="th" scope="reading">
                                 {/* {reading.created_at} */}
@@ -42,7 +42,7 @@ const TableView = props => {
                                 <TableCell align="right">{reading.salinity}</TableCell>
                             ) : null}
                         </TableRow>
-                    ))}
+                    )) : null}
                 </TableBody>
             </Table>
         </TableContainer>

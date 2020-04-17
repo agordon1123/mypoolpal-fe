@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { errorHandler } from '../../utils/errorHandler';
 import TextField from '@material-ui/core/TextField';
@@ -10,11 +10,17 @@ const AddReading = props => {
     
     // console.log(props.history)
     const history = useHistory()
+    const location = useLocation()
 
     const user = JSON.parse(localStorage.getItem('user'))
+    // TODO: test -> trying to pull poolId from params
+    const poolId = location.pathname.substring(5, 6);
+    console.log(poolId)
 
     const [reading, setReading] = useState({
-        user_id: user.id,
+        // user_id: user.id,
+        // TODO: find source and make dynamic
+        pool_id: 1,
         pH: '',
         chlorine: '',
         alkalinity: '',
@@ -35,6 +41,12 @@ const AddReading = props => {
             .post(`${process.env.REACT_APP_DB_URL}/readings`, reading)
             .then(res => {
                 console.log(res.data)
+                // should change to selected pool when integrated
+                const id = res.data.id;
+                const path = location.pathname.substring(0, 7);
+                
+                history.replace('/dashboard')
+                history.push(`${path}/reading/${id}`);
             })
             .catch(err => {
                 console.log(err.response)

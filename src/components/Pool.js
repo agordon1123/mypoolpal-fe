@@ -12,7 +12,7 @@ const Pool = props => {
     const { readings, setReadings, history } = props;
     const [pool, setPool] = useState({})
     const [readingsView, setReadingsView] = useState({ list: true, calendar: false });
-    const user = JSON.parse(localStorage.getItem('user'))
+    // const user = JSON.parse(localStorage.getItem('user'))
     const location = useLocation()
     
     useEffect(() => {
@@ -35,7 +35,7 @@ const Pool = props => {
             })
         
         axiosWithAuth()
-            .get(`${process.env.REACT_APP_DB_URL}/readings/all/${user.id}`)
+            .get(`${process.env.REACT_APP_DB_URL}/readings/all/${poolId}`)
             .then(res => {
                 // create new date object from timestamp
                 res.data.map((el, i) => {

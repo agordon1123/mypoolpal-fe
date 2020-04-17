@@ -109,7 +109,7 @@ const Reading = props => {
                             <TableCell align="center">80 - 120 ppm</TableCell>
                         </TableRow>
                         {pool.is_salt_water === 'salt' ? (
-                            <TableRow key={reading.alkalinity}>
+                            <TableRow key={reading.salinity}>
                                 <TableCell align="center">Salinity</TableCell>
                                 <TableCell align="center">{reading.salinity}</TableCell>
                                 <TableCell align="center">2800 - 3300 ppm</TableCell>
