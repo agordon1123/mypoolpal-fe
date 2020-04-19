@@ -1,66 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { useAppState } from '../AppContext';
 import CalendarView from './Readings/CalendarView';
 import TableView from './Readings/Tableview';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { errorHandler } from '../utils/errorHandler';
 import { Card, CardMedia } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 
-const Pool = props => {
+const Pool = () => {
 
-    const { readings, setReadings, history } = props;
-    const [pool, setPool] = useState({})
+    const [pool, setPool] = useState({});
+    const [poolReadings, setPoolReadings] = useState([]);
     const [readingsView, setReadingsView] = useState({ list: true, calendar: false });
-    // const user = JSON.parse(localStorage.getItem('user'))
-    const location = useLocation()
+    const [{ pools, readings }, dispatch] = useAppState();
+    const location = useLocation();
     
     useEffect(() => {
-        const len = location.pathname.length
-        const poolId = location.pathname.charAt(len - 1)
+        const len = location.pathname.length;
+        const poolId = location.pathname.charAt(len - 1);
         
-        axiosWithAuth()
-            .get(`pools/${poolId}`)
-            .then(res => {
-                // convert boolean to string
-                if (res.data.is_salt_water === 1) {
-                    res.data.is_salt_water = 'salt';
-                } else {
-                    res.data.is_salt_water = 'chlorine';
-                }
-                setPool(res.data)
-            })
-            .catch(err => {
-                errorHandler(err.response, history)
-            })
+        pools.map(pool => pool.id.toString() === poolId ? setPool(pool) : null);
         
-        axiosWithAuth()
-            .get(`${process.env.REACT_APP_DB_URL}/readings/all/${poolId}`)
-            .then(res => {
-                // create new date object from timestamp
-                res.data.map((el, i) => {
-                    el.created_at = new Date(el.created_at)
-                })
+        const filteredReadings = readings.filter(reading => reading.pool_id == poolId);
+        setPoolReadings(filteredReadings);
 
-                console.log(res.data)
-                // TODO: Filter out by pool ->
-                // will require adding pool as foreign key in reading table
-                // will require pool object to be passed in from this view
-                // and also prompt a select in the add reading view to
-                // select pool
-                // once in place -> filter
-                
-                // sort readings by date in descending order
-                let sortedReadings = res.data.sort((a, b) => {
-                    return b.id - a.id
-                })
-                setReadings(sortedReadings)
-            })
-            .catch(err => {
-                errorHandler(err.response, history)
-            })
-
-    }, [location.pathname])
+    }, [pools, readings])
 
     const handleViewToggle = () => {
         setReadingsView({ 
@@ -102,10 +65,10 @@ const Pool = props => {
 
             {readingsView.list ? (
                 //render table in list view
-                <TableView readings={readings} pool={pool} />
+                <TableView readings={poolReadings} pool={pool} />
             ) : (
                 // render calendar view
-                <CalendarView readings={readings} />
+                <CalendarView readings={poolReadings} />
             )}
             <div className='add-new-reading'>
                 <Link to={`${location.pathname}/new-reading`}>

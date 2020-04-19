@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
+import { useAppState } from '../../AppContext';
 import axios from 'axios';
 import PoolIcon from '@material-ui/icons/Pool';
 import TextField from '@material-ui/core/TextField';
@@ -13,14 +14,13 @@ import Button from '@material-ui/core/Button';
 const Login = () => {
 
     const history = useHistory();
+    const [state, dispatch] = useAppState();
 
     const [credentials, setCredentials] = useState({
         email: '',
         password: '',
         showPassword: false
     });
-
-    console.log(credentials);
 
     const handleChange = event => {
         setCredentials({
@@ -33,7 +33,7 @@ const Login = () => {
         setCredentials({
             ...credentials,
             showPassword: !credentials.showPassword
-        })
+        });
     }
 
     const handleSubmit = event => {
@@ -42,15 +42,9 @@ const Login = () => {
         axios
             .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
             .then(res => {
-                console.log(res.data.token)
                 localStorage.setItem('token', res.data.token)
-                localStorage.setItem('user', JSON.stringify(res.data.user))
+                dispatch({ type: 'SET_USER', payload: res.data.user })
                 return history.push('/dashboard')
-                
-                // still deciding if redux is necessary
-                // if so, we will add the user to an app state
-                // if not, we will add the user to localStorage
-                //    and pull IDs from there
             })
             .catch(err => console.log(err))
     }

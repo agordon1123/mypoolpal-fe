@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { errorHandler } from '../utils/errorHandler';
+import React from 'react';
+import { useAppState } from '../AppContext';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const SelectPool = () => {
-    const history = useHistory();
-    const user = JSON.parse(localStorage.getItem('user'));
-    const [pools, setPools] = useState([]);
-
-    useEffect(() => {
-        axiosWithAuth()
-            .get(`${process.env.REACT_APP_DB_URL}/pools/all/${user.id}`)
-            .then(res => {
-                console.log(res);
-                setPools(res.data);
-            })
-            .catch(err => {
-                errorHandler(err.response, history);
-            })
-    }, [])
+const SelectPool = props => {
+    const { history } = props;
+    const [{ pools }, dispatch] = useAppState();
 
     const handleChange = e => {
         console.log(e.target.value);
@@ -40,9 +25,6 @@ const SelectPool = () => {
                     // value={selected}
                     onChange={handleChange}
                 >
-                    {/* <MenuItem value={null}>
-                        <em></em>
-                    </MenuItem> */}
                     {pools.length > 0 && (
                         pools.map((el, i) => (
                             <MenuItem value={el.id}>{el.title}</MenuItem>

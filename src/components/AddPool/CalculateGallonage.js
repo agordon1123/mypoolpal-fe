@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { gallonageCalculator } from '../../functions/gallonageCalculator';
 import InputGallonageForm from './InputGallonageForm';
+import CloseIcon from '@material-ui/icons/Close';
+import Paper from '@material-ui/core/Paper';
 
 const CalculateGallonage = props => {
-
+    
     const { show, handleClose, handleCalculate } = props
-
+    const showHideClassName =  show ? 'modal-show' : 'modal-hide';
+    
     const initialState = {
         shape: '',
         length: 0,
@@ -14,14 +17,14 @@ const CalculateGallonage = props => {
         longWidth: 0,
         depth: 0
     }
-
-    const [measurements, setMeasurements] = useState(initialState)
+    
+    const [measurements, setMeasurements] = useState(initialState);
 
     const handleChange = e => {
         setMeasurements({
             ...measurements,
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     const handleSubmit = e => {
@@ -32,22 +35,19 @@ const CalculateGallonage = props => {
             return alert('Please select a pool shape')
         }
 
-        let gallons = gallonageCalculator(measurements)
-        handleCalculate(gallons)
-
-        handleClose()
+        let gallons = gallonageCalculator(measurements);
+        handleCalculate(gallons);
+        handleClose();
     }
 
-    const showHideClassName =  show ? 'modal-show' : 'modal-hide'
 
     return (
         <div className={showHideClassName}>
-            {/* form cannot be child of form */}
-            <form
-                onSubmit={handleSubmit}
-            >
+            <Paper>
+            <form onSubmit={handleSubmit}>
                 <div className='close-button'>
-                    <button type='button' onClick={() => handleClose()}>X</button>
+                    <CloseIcon onClick={() => handleClose()} />
+                    {/* <button type='button' onClick={() => handleClose()}>X</button> */}
                 </div>
                 <label for='shape-selector'>Shape:</label>
                 <select id='shape-selector' name='shape' onChange={handleChange}>
@@ -62,6 +62,7 @@ const CalculateGallonage = props => {
                     <InputGallonageForm handleChange={handleChange} shape={measurements.shape} />
                 )}
             </form>
+            </Paper>
         </div>
     );
 };

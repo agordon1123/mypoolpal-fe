@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
-import { axiosWithAuth } from '../utils/axiosWithAuth'
-import { errorHandler } from '../utils/errorHandler';
+import { useLocation } from 'react-router-dom'
+import { useAppState } from '../AppContext';
+import { calculateScore } from '../functions/calculateScore';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import "react-circular-progressbar/dist/styles.css";
 import Table from '@material-ui/core/Table';
@@ -11,62 +11,42 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { calculateScore } from '../functions/calculateScore';
 
-const Reading = props => {
-    // const { history } = props;
-    const location = useLocation()
-    const history = useHistory()
+const Reading = () => {
+    const location = useLocation();
 
-    const [reading, setReading] = useState({})
-    const [pool, setPool] = useState({})
+    const [{ pools, readings }, dispatch] = useAppState();
+
+    const [reading, setReading] = useState({});
+    const [pool, setPool] = useState({});
     const [calculated, setCalculated] = useState(false);
     const [score, setScore] = useState(0);
-    console.log(pool)
 
     useEffect(() => {
-        const len = location.pathname.length
-        const readingId = location.pathname.charAt(len - 1)
+        const len = location.pathname.length;
+        // will break with double digits
+        // maybe can use regex to find first substring with /num/
+        // and remove first and last chars
+        const readingId = location.pathname.charAt(len - 1);
         const poolId = location.pathname.charAt(6);
-        console.log(poolId)
 
-        axiosWithAuth()
-            .get(`${process.env.REACT_APP_DB_URL}/readings/${readingId}`)
-            .then(res => {
-                const score = calculateScore(res.data);
-                setReading(res.data)
+        pools.map(pool => pool.id.toString() === poolId ? setPool(pool) : null);
+        readings.map(reading => {
+            if (reading.id.toString() === readingId) {
+                const score = calculateScore(reading);
+                setReading(reading);
                 setScore(score);
                 setCalculated(true);
-            })
-            .catch(err => {
-                errorHandler(err.response)
-            })
-
-        axiosWithAuth()
-            .get(`pools/${poolId}`)
-            .then(res => {
-                // convert boolean to string
-                if (res.data.is_salt_water === 1) {
-                    res.data.is_salt_water = 'salt';
-                } else {
-                    res.data.is_salt_water = 'chlorine';
-                }
-                setPool(res.data)
-            })
-            .catch(err => {
-                errorHandler(err.response, history)
-            })
-    }, [])
+            }
+        });
+    }, [pools, readings]);
     
-    console.log(props);
-
     return (
         <div className='reading-container'>
             {calculated ? (
                 <div className='score-display-container'>
                     <h2>Overall Score</h2>
                     <CircularProgressbar
-                        // className='progress-bar'
                         value={score}
                         text={`${score}%`}
                         background
