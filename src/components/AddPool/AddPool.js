@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import CalculateGallonage from './CalculateGallonage';
-import axios from 'axios';
+import { useAppState } from '../../AppContext';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { errorHandler } from '../../utils/errorHandler';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 
-const AddPool = () => {
+const AddPool = props => {
+    const { history } = props;
+    const [{ pools }, dispatch] = useAppState();
+    const [modal, setModal] = useState({ show: false })
 
     const [pool, setPool] = useState({
         user_id: JSON.parse(localStorage.getItem('user')).id,
@@ -16,12 +21,18 @@ const AddPool = () => {
         is_salt_water: ''
     })
 
-    console.log(pool)
+    const handleClose = () => {
+        setModal({ show: false })
+    }
 
-    const [modal, setModal] = useState({ show: false })
+    const handleCalculate = gallonage => {
+        setPool({
+            ...pool,
+            gallonage: gallonage
+        })
+    }
 
     const handleChange = e => {
-        console.log(e.target.value, ": ", e.target.name)
         setPool({
             ...pool,
             [e.target.name]: e.target.value
@@ -44,29 +55,24 @@ const AddPool = () => {
 
         pool.gallonage = newGallonage;
         // convert string to boolean
-        pool.is_salt_water === 'salt' ? pool.is_salt_water = true : pool.is_salt_water = false;
-        console.log(pool)
-        axios
-            .post(`${process.env.REACT_APP_DB_URL}/pools`, pool)
-            .then(pool => {
-                console.log(pool);
+        pool.is_salt_water === 'salt' ? pool.is_salt_water = 1 : pool.is_salt_water = 0;
+        
+        axiosWithAuth()
+            .post(`${process.env.REACT_APP_DB_URL}/pools/`, pool)
+            .then(res => {
+                // add new pool to state and push to detailed view
+                let newState = pools;
+                newState.push(res.data);
+                dispatch({ type: 'SET_POOLS', payload: newState });
+                history.replace('/dashboard');
+                history.push(`/pool/${res.data.id}`);
             })
-            .catch(err => console.log(err))
-    }
-
-    const handleClose = () => {
-        setModal({ show: false })
-    }
-
-    const handleCalculate = gallonage => {
-        setPool({
-            ...pool,
-            gallonage: gallonage
-        })
+            .catch(err => errorHandler(err.response, history));
     }
 
     return (
         <div className='add-pool-container'>
+            <h2>Pool Info:</h2>
             <form onSubmit={handleSubmit}>
                 <FormControl className='pool-form-input'>
                     <TextField 
