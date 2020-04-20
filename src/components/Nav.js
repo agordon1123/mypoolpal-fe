@@ -23,7 +23,7 @@ const Nav = () => {
 
     const checkLocation = () => {
         // return true or false if back button should appear
-        if (location.pathname.includes('\/pool\/')) {
+        if (location.pathname.includes('\/pool\/') || location.pathname === '/add-reading') {
             setShowBack(true)
         } else {
             setShowBack(false);

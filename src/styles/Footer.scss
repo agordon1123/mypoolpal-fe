@@ -7,8 +7,15 @@
             height: 3rem;
             width: 3rem;
         }
-        span {
-            font-size: 1rem;
+        .troubleshoot-svg {
+            width: 2.5rem;
         }
+    }
+}
+
+.MuiBottomNavigationAction-root {
+    font-size: 1rem;
+    .Mui-selected {
+        font-size: 1rem;
     }
 }

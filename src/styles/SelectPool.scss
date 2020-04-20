@@ -1,7 +1,38 @@
 .select-pool-container {
     height: 80%;
-    padding-top: 40%;
+    padding-top: 30%;
+    h2 {
+        font-size: 2.4rem;
+    }
     .select-form {
         width: 40%;
+        margin-top: 1rem;
+        .MuiOutlinedInput-root {
+            height: 5rem;
+        }
+        .MuiSelect-select.MuiSelect-select {
+            height: 1.4rem;
+        }
+        label {
+            font-size: 1.4rem;
+        }
+        .MuiSelect-icon {
+            top: 7px;
+        }
+        p {
+            font-size: 1rem;
+        }
+    }
+}
+
+.MuiPopover-root {
+    .MuiPaper-root {
+        ul {
+            li {
+                font-size: 1.4rem;
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                margin: .5rem 0;
+            }
+        }
     }
 }

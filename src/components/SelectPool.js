@@ -19,6 +19,7 @@ const SelectPool = props => {
 
     return (
         <div className='select-pool-container'>
+            <h2>Select Pool:</h2>
             <FormControl required className='select-form'>
                 <InputLabel>Pool</InputLabel>
                 <Select
