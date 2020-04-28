@@ -28,7 +28,7 @@ const App = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     dispatch({ type: 'SET_USER', payload: user });
 
-    if (token) {
+    if (token && user) {
       axiosWithAuth()
         .get(`pools/all/${user.id}`)
         .then(res => {
