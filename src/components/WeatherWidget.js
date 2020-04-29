@@ -4,9 +4,6 @@ import { useAppState } from '../AppContext';
 import { errorHandler } from '../utils/errorHandler';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-
-// TODO: connect to weather API
 
 const WeatherWidget = () => {
     const [{ user }, dispatch] = useAppState();

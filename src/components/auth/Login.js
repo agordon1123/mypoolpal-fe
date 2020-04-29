@@ -42,7 +42,6 @@ const Login = () => {
         axios
             .post(`${process.env.REACT_APP_DB_URL}/users/login`, credentials)
             .then(res => {
-                console.log(res)
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('user', JSON.stringify(res.data.user))
                 dispatch({ type: 'SET_USER', payload: res.data.user })

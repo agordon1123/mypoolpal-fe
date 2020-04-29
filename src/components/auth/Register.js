@@ -11,14 +11,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
 const Register = () => {
-
     const history = useHistory();
 
     const [credentials, setCredentials] = useState({
         first_name: '',
         last_name: '',
         email: '',
-        password: ''
+        password: '',
+        zipcode: ''
     });
 
     const handleChange = event => {
@@ -30,6 +30,13 @@ const Register = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
+
+        const re = /^[0-9]+$/;
+        if (!credentials.zipcode.length === 5 || !re.test(credentials.zipcode)) {
+            return alert('Please enter a valid zipcode');
+        }
+
+        console.log(credentials)
 
         axios
             .post(`${process.env.REACT_APP_DB_URL}/users/register`, credentials)
@@ -54,7 +61,7 @@ const Register = () => {
                     <TextField
                         label='First Name' 
                         type='text' 
-                        name='firstName' 
+                        name='first_name' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'first name',
@@ -65,10 +72,21 @@ const Register = () => {
                     <TextField
                         label='Last Name' 
                         type='text' 
-                        name='lastName' 
+                        name='last_name' 
                         onChange={handleChange}
                         inputProps={{
                             'aria-label': 'last name',
+                        }}
+                    />
+                </FormControl>                
+                <FormControl className='auth-form-input'>
+                    <TextField
+                        label='Zipcode' 
+                        type='text'
+                        name='zipcode'
+                        onChange={handleChange}
+                        inputProps={{
+                            'aria-label': 'zipcode',
                         }}
                     />
                 </FormControl>
