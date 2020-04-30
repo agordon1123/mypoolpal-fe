@@ -20,7 +20,7 @@ import SelectPool from './components/SelectPool';
 const App = () => {
   
   const history = useHistory();
-  const [state, dispatch] = useAppState();
+  const [{}, dispatch] = useAppState();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
