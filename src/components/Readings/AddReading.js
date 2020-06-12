@@ -13,7 +13,7 @@ const AddReading = props => {
     // will break with double digits
     // maybe can use regex to find first substring with /num/
     // and remove first and last chars
-    const poolId = location.pathname.substring(5, 6);
+    const poolId = location.pathname.substring(6, 7);
 
     const [reading, setReading] = useState({
         pool_id: poolId,
@@ -37,9 +37,9 @@ const AddReading = props => {
             .post(`${process.env.REACT_APP_DB_URL}/readings`, reading)
             .then(res => {
                 const id = res.data.id;
-                const path = location.pathname.substring(0, 7);
+                const path = location.pathname.substring(0, 7)
                 history.replace('/dashboard')
-                history.push(`${path}/reading/${id}`);
+                history.push(`${path}/reading/${id}`)
             })
             .catch(err => {
                 errorHandler(err.response, history)
